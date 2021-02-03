@@ -1,13 +1,11 @@
 import React from 'react';
-import LottieView from 'lottie-react-native';
+//import LottieView from 'lottie-react-native';
+import {Image} from 'react-native'
 
 export default class SantaAnimation extends React.Component {
   render() {
     return (
-      <LottieView
-      source={require('../assets/3154-books-2.json')}
-      style={{width:"60%"}}
-      autoPlay loop />
+      <Image source= {require ('../')} style = {{width:200, height:200}}/>
     )
   }
 }

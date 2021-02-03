@@ -5,14 +5,15 @@ import { createAppContainer, createSwitchNavigator,} from 'react-navigation';
 import WelcomeScreen from './screens/WelcomeScreen';
 import { AppTabNavigator } from './components/AppTabNavigator'
 import { AppDrawerNavigator } from './components/AppDrawerNavigator'
+import _ from 'lodash';
 
-
-export default function App() {
-  return (
-    <AppContainer/>
-  );
+export default class App extends  React.Component{
+  render(){
+    return(
+      <AppContainer/>
+    )
+  }
 }
-
 
 const switchNavigator = createSwitchNavigator({
   WelcomeScreen:{screen: WelcomeScreen},

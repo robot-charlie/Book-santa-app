@@ -195,7 +195,8 @@ export default class WelcomeScreen extends Component {
 
 
        <View style={styles.profileContainer}>
-          <SantaAnimation/>
+        { /* <SantaAnimation/>*/}
+        <Image style={{ width: 100, height: 180 }} source={require("../assets/santa.png")} />
           <Text style={styles.title}>Book Santa</Text>
         </View>
         <View style={styles.buttonContainer}>

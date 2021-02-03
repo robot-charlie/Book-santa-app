@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, FlatList,TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, FlatList,TouchableOpacity,SafeAreaView } from 'react-native';
 import { ListItem } from 'react-native-elements'
-import {SafeAreaView} from 'react-navigation';
 import firebase from 'firebase';
 import db from '../config'
 import MyHeader from '../components/MyHeader';
@@ -19,49 +18,50 @@ export default class BookDonateScreen extends Component{
   getRequestedBooksList =()=>{
     this.requestRef = db.collection("requested_books")
     .onSnapshot((snapshot)=>{
-      var requestedBooksList = snapshot.docs.map(doc => doc.data());
+      var requestedBooksList = snapshot.docs.map(document => document.data());
       this.setState({
         requestedBooksList : requestedBooksList
       });
     })
   }
 
-
   componentDidMount(){
     this.getRequestedBooksList()
   }
 
   componentWillUnmount(){
-   this.requestRef();
+    this.requestRef();
   }
 
   keyExtractor = (item, index) => index.toString()
 
   renderItem = ( {item, i} ) =>{
     return (
-      <ListItem
-        key={i}
-        title={item.book_name}
-        subtitle={item.reason_to_request}
-        titleStyle={{ color: 'black', fontWeight: 'bold' }}
-        rightElement={
+      
+      <ListItem 
+        key={i}    bottomDivider>
+        <ListItem.Content>
+            <ListItem.Title style= {{color: 'black',fontWeight:"bold"}}> {item.book_name}</ListItem.Title>
+            <ListItem.Subtitle style={{color : 'green'}}>{item.reason_to_request}</ListItem.Subtitle>
             <TouchableOpacity style={styles.button}
-            onPress ={()=>{
-              this.props.navigation.navigate("RecieverDetails",{"details": item})
-            }}
+             onPress ={()=>{
+                this.props.navigation.navigate("RecieverDetails",{"details": item})
+              }}
             >
-              <Text style={{color:'#ffff'}}>View</Text>
+                <Text style={{color :'#ffff'}}>View</Text>
+
             </TouchableOpacity>
-          }
-        bottomDivider
-      />
+        </ListItem.Content>
+     
+          </ListItem>
     )
   }
 
   render(){
     return(
+     
       <View style={{flex:1}}>
-        <MyHeader title="Donate Books" navigation={this.props.navigation}/>
+        <MyHeader title="Donate Books"/>
         <View style={{flex:1}}>
           {
             this.state.requestedBooksList.length === 0
@@ -80,6 +80,7 @@ export default class BookDonateScreen extends Component{
           }
         </View>
       </View>
+      
     )
   }
 }
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
     alignItems:'center'
   },
   button:{
-    width:100,
+    width:80,
     height:30,
     justifyContent:'center',
     alignItems:'center',
