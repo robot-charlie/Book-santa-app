@@ -11,7 +11,7 @@ export default class MyDonationScreen extends Component {
    constructor(){
      super()
      this.state = {
-       userId : firebase.auth().currentUser.email,
+       donorId : firebase.auth().currentUser.email,
        donorName : "",
        allDonations : []
      }
@@ -19,8 +19,20 @@ export default class MyDonationScreen extends Component {
    }
 
 
+   getDonorDetails=(donorId)=>{
+     console.log("abc")
+    db.collection("users").where("email_id","==",donorId).get()
+    .then((snapshot)=>{
+      snapshot.forEach((doc) => {
+        this.setState({
+          "donorName" : doc.data().first_name + " " + doc.data().last_name
+        })
+      });
+    })
+  }
+
    getAllDonations =()=>{
-     this.requestRef = db.collection("all_donations").where("donor_id" ,'==', this.state.userId)
+     this.requestRef = db.collection("all_donations").where("donor_id" ,'==', this.state.donorId)
      .onSnapshot((snapshot)=>{
        var allDonations = snapshot.docs.map(document => document.data());
        this.setState({
@@ -123,6 +135,7 @@ export default class MyDonationScreen extends Component {
 
 
    componentDidMount(){
+    this.getDonorDetails(this.state.donorId)
      this.getAllDonations()
    }
 
