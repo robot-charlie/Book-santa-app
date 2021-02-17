@@ -54,6 +54,7 @@ export default class SwipeableFlatlist extends Component {
     </Animated.View>
   );
 
+  
   renderHiddenItem = () => (
     <View style={styles.rowBack}>
       <View style={[styles.backRightBtn, styles.backRightBtnRight]}>
