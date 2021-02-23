@@ -64,18 +64,18 @@ export default class BookRequestScreen extends Component{
         requestId: randomRequestId  
     })
 
-    return Alert.alert("Book Requested Successfully")
+    return alert("Book Requested Successfully")
   }
 
 
-  receivedBooks=(bookName)=>{
+  recievedBooks=(bookName)=>{
     var userId = this.state.userId
     var requestId = this.state.requestId
-    db.collection('received_books').add({
+    db.collection('recieved_books').add({
         "user_id": userId,
         "book_name":bookName,
         "request_id"  : requestId,
-        "bookStatus"  : "received",
+        "bookStatus"  : "recieved",
   
     })
   }
@@ -105,7 +105,7 @@ var bookRequest=  db.collection('requested_books')
   .get()
   .then((snapshot)=>{
     snapshot.forEach((doc)=>{
-      if(doc.data().book_status !== "received"){
+      if(doc.data().book_status !== "recieved"){
         this.setState({
           requestId : doc.data().request_id,
           requestedBookName: doc.data().book_name,
@@ -136,7 +136,7 @@ sendNotification=()=>{
           //targert user id is the donor id to send notification to the user
           db.collection('all_notifications').add({
             "targeted_user_id" : donorId,
-            "message" : name +" " + lastName + " received the book " + bookName ,
+            "message" : name +" " + lastName + " recieved the book " + bookName ,
             "notification_status" : "unread",
             "book_name" : bookName
           })
@@ -200,7 +200,7 @@ updateBookRequestStatus=()=>{
           onPress={()=>{
             this.sendNotification()
             this.updateBookRequestStatus();
-            this.receivedBooks(this.state.requestedBookName)
+            this.recievedBooks(this.state.requestedBookName)
           }}>
           <Text>I recieved the book </Text>
           </TouchableOpacity>

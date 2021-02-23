@@ -5,30 +5,30 @@ import firebase from 'firebase';
 import db from '../config'
 import MyHeader from '../components/MyHeader';
 
-export default class MyReceivedBooksScreen extends Component{
+export default class MyRecievedBooksScreen extends Component{
   constructor(){
     super()
     this.state = {
       userId  : firebase.auth().currentUser.email,
-      receivedBooksList : []
+      recievedBooksList : []
     }
   this.requestRef= null
   }
 
-  getReceivedBooksList =()=>{
+  getRecievedBooksList =()=>{
     this.requestRef = db.collection("requested_books")
     .where('user_id','==',this.state.userId)
     .where("book_status", '==','recieved')
     .onSnapshot((snapshot)=>{
-      var receivedBooksList = snapshot.docs.map((doc) => doc.data())
+      var recievedBooksList = snapshot.docs.map((doc) => doc.data())
       this.setState({
-        receivedBooksList : receivedBooksList
+        recievedBooksList : recievedBooksList
       });
     })
   }
 
   componentDidMount(){
-    this.getReceivedBooksList()
+    this.getRecievedBooksList()
   }
 
   componentWillUnmount(){
@@ -53,19 +53,19 @@ export default class MyReceivedBooksScreen extends Component{
   render(){
     return(
       <View style={{flex:1}}>
-        <MyHeader title="Received Books" navigation ={this.props.navigation}/>
+        <MyHeader title="Recieved Books" navigation ={this.props.navigation}/>
         <View style={{flex:1}}>
           {
-            this.state.receivedBooksList.length === 0
+            this.state.recievedBooksList.length === 0
             ?(
               <View style={styles.subContainer}>
-                <Text style={{ fontSize: 20}}>List Of All Received Books</Text>
+                <Text style={{ fontSize: 20}}>List Of All Recieved Books</Text>
               </View>
             )
             :(
               <FlatList
                 keyExtractor={this.keyExtractor}
-                data={this.state.receivedBooksList}
+                data={this.state.recievedBooksList}
                 renderItem={this.renderItem}
               />
             )

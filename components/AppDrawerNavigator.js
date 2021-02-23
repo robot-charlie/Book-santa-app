@@ -5,7 +5,7 @@ import CustomSideBarMenu  from './CustomSideBarMenu';
 import SettingScreen from '../screens/SettingScreen';
 import MyDonationScreen from '../screens/MyDonationScreen';
 import NotificationScreen from '../screens/NotificationScreen';
-import MyReceivedBooksScreen from '../screens/MyReceivedBooksScreen';
+import MyRecievedBooksScreen from '../screens/MyRecievedBooksScreen';
 
 export const AppDrawerNavigator = createDrawerNavigator({
   Home : {
@@ -17,8 +17,8 @@ screen:MyDonationScreen
     Notification : {
       screen : NotificationScreen
     },
-    MyReceivedBooks :{
-      screen: MyReceivedBooksScreen
+    MyRecievedBooks :{
+      screen: MyRecievedBooksScreen
     },
     Setting : {
       screen : SettingScreen
